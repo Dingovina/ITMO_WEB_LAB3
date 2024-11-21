@@ -59,24 +59,25 @@ export class CanvasManager {
     static drawPoligon(){
         
         // circle
-        this.ctx.arc(this.W / 2, this.H / 2, this.R, Math.PI / 2, Math.PI, false);
+        this.ctx.arc(this.W / 2, this.H / 2, this.R, 0, Math.PI / 2, false);
         this.ctx.fill();
         this.ctx.beginPath();
         this.ctx.moveTo(this.W / 2, this.H / 2);
         this.ctx.lineTo(this.W / 2, this.H / 2 + this.R + 1);
-        this.ctx.lineTo(this.W / 2 - this.R - 1, this.H / 2);
+        this.ctx.lineTo(this.W / 2 + this.R + 1, this.H / 2);
         this.ctx.closePath();
         this.ctx.fill();
+        
     
         // rectangle
-        this.ctx.rect(this.W / 2, this.H / 2, this.R / 2, this.R);
+        this.ctx.rect(this.W / 2, this.H / 2, this.R, -this.R / 2);
         this.ctx.fill();
     
         // triangle
         this.ctx.beginPath();
         this.ctx.moveTo(this.W / 2, this.H / 2);
-        this.ctx.lineTo(this.W / 2, this.H / 2 - this.R / 2);
-        this.ctx.lineTo(this.W / 2 + this.R / 2, this.H / 2);
+        this.ctx.lineTo(this.W / 2, this.H / 2 + this.R + 1);
+        this.ctx.lineTo(this.W / 2 - this.R - 1, this.H / 2);
         this.ctx.closePath();
         this.ctx.fill();
     }
@@ -85,13 +86,13 @@ export class CanvasManager {
         let x = point.x;
         let y = point.y;
         this.ctx.beginPath();
-        this.ctx.arc(this.W / 2 + x * this.R / point.r, this.H / 2 - y * this.R / point.r, 2, 0, 2 * Math.PI);
+        this.ctx.arc(this.W / 2 + x * this.DEFAULT_R, this.H / 2 - y * this.DEFAULT_R, 2, 0, 2 * Math.PI);
         this.ctx.fillStyle = point.hit ? "green" : "red";
         this.ctx.fill();
     }
 
     static updatePonits(point_list){
-        let r = document.getElementById("r").value;
+        let r = parseFloat(document.querySelector('input[name="form:r-input"]:checked').value);
         if (!r) r = 1;
         this.draw(r);
         point_list.forEach(point => {
@@ -103,7 +104,8 @@ export class CanvasManager {
         let rect = this.canvas.getBoundingClientRect();
         let x = event.clientX - rect.left - this.W / 2;
         let y = -(event.clientY - rect.top - this.H / 2);    
-        let r = document.getElementById("r").value;
+        // let r = document.getElementById("form:r-input").value;
+        let r = parseFloat(document.querySelector('input[name="form:r-input"]:checked').value);
         x = x / this.R * r;
         y = y / this.R * r;
 
