@@ -5,7 +5,6 @@
                                   https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
 <!-- Navigation -->
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>goMain</from-outcome>
             <to-view-id>/main.jsp</to-view-id>
@@ -13,7 +12,6 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/main.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>goIndex</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
