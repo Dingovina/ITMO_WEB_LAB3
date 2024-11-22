@@ -1,5 +1,5 @@
-import { CanvasManager } from "./canvasManager.js";
-import { TableManager } from "./tableManager.js";
+import { CanvasManager } from "./managers/canvasManager.js";
+import { TableManager } from "./managers/tableManager.js";
 
 init();
 

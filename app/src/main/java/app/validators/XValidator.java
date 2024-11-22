@@ -1,4 +1,4 @@
-package app;
+package app.validators;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
