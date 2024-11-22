@@ -23,7 +23,7 @@ function init(){
     TableManager.updateTable();
     setTimeout(() => {
         renderPoints();
-    }, 100);
+    }, 200);
 }
 
 document.getElementsByName("form:r-input").forEach(radio => {
@@ -44,7 +44,7 @@ document.getElementById("canvas").onclick = function(event) {
 
     setTimeout(() => {
         renderPoints();
-    }, 100);    
+    }, 200);    
 }
 
 document.getElementById("form:submit").addEventListener('click', () => {
