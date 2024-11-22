@@ -11,16 +11,13 @@ public class HitManager {
         if (x >= 0 && y >= 0) {
             return x <= r && y <= r / 2;
         }
-        if (x < 0 && y >= 0) {
-            return false;
-        }
-        if (x < 0 && y < 0) {
+        if (x <= 0 && y <= 0) {
             return y >= (-x - r);
         }
-        if (x >= 0 && y < 0) {
+        if (x >= 0 && y <= 0) {
             return x * x + y * y <= r * r;
         }
-        return true;
+        return false;
     }
     
 }
