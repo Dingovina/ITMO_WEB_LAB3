@@ -1,9 +1,15 @@
+### gradle ###
 .gradle
 build/
-db.cfg
+gradle/
+gradlew
+gradlew.bat
+settings.gradle.kts
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+db.cfg
 
 ### wildfly ###
 /wildfly-preview-34.0.0.Beta1/
