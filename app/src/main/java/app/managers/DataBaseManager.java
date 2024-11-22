@@ -2,6 +2,10 @@ package app.managers;
 
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import app.beans.PointBean;
 
@@ -14,21 +18,20 @@ import java.sql.SQLException;
 public class DataBaseManager {
     private String HOST_NAME = "localhost";
     private String PORT = "5432";
-    private String USER_NAME = "dingovina";
     private String DB_NAME = "lab3storage";
     private String TABLE_NAME = "points";
 
     
     private String url = "jdbc:postgresql://" + HOST_NAME + ":" + PORT + "/" + DB_NAME;
-    private String user = USER_NAME;
-    private String password = "Superteam";
+    private Properties props = new Properties();
     
     private Connection connection;
     private Statement statement;
     
-    public DataBaseManager() throws SQLException, ClassNotFoundException {
+    public DataBaseManager() throws SQLException, ClassNotFoundException, FileNotFoundException, IOException {
         Class.forName("org.postgresql.Driver");
-        connection = DriverManager.getConnection(url, user, password);
+        props.load(new FileInputStream("db.cfg"));
+        connection = DriverManager.getConnection(url, props);
         statement = connection.createStatement();
         
         if (getPoints() == null) {

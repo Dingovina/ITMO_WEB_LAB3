@@ -1,4 +1,6 @@
 package app.beans;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,17 +18,17 @@ public class StorageBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<PointBean> points = new ArrayList<>();
 
-    public StorageBean() throws ClassNotFoundException, SQLException {
+    public StorageBean() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
         update();
     }
 
-    public void addPoint(PointBean point) throws ClassNotFoundException, SQLException{
+    public void addPoint(PointBean point) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException{
         DataBaseManager dbManager = new DataBaseManager();
         dbManager.addPoint(point);
         update();
     }
 
-    public void update() throws ClassNotFoundException, SQLException{
+    public void update() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException{
         DataBaseManager dbManager = new DataBaseManager();
         points = dbManager.getPoints();
     }
