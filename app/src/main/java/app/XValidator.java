@@ -7,19 +7,19 @@ import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 
-@FacesValidator("yValidator")
-public class YValidator implements Validator<Object> {
+@FacesValidator("xValidator")
+public class XValidator implements Validator<Object> {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        double y = (double) value;
-        if (y < -3 || y > 5) {
-            FacesMessage msg =
-                    new FacesMessage("Point validation failed.",
-                            "Y must be between -3 and 5");
-            throw new ValidatorException(msg);
+        double x = (double) value;
+        for (double i = -3; i <= 3; i += 0.5) {
+            if (x == i) {
+                return;
+            }
         }
+        FacesMessage msg = new FacesMessage("X validation failed.");
+        throw new ValidatorException(msg);
     }
-    
 }
 
