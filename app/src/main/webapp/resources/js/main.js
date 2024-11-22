@@ -1,6 +1,7 @@
 import { CanvasManager } from "./canvasManager.js";
+import { TableManager } from "./tableManager.js";
 
-renderPoints();
+init();
 
 function renderPoints(){
     let points = [];
@@ -15,6 +16,14 @@ function renderPoints(){
         });
     }
     CanvasManager.updatePonits(points); 
+}
+
+
+function init(){
+    TableManager.updateTable();
+    setTimeout(() => {
+        renderPoints();
+    }, 100);
 }
 
 document.getElementsByName("form:r-input").forEach(radio => {
@@ -35,13 +44,13 @@ document.getElementById("canvas").onclick = function(event) {
 
     setTimeout(() => {
         renderPoints();
-    }, 200);    
+    }, 100);    
 }
 
 document.getElementById("form:submit").addEventListener('click', () => {
-    let cnt = document.querySelectorAll('#history-table tbody tr').length;
+    let cnt = TableManager.getTableLenght();
     setTimeout(() => {
-        if (cnt != document.querySelectorAll('#history-table tbody tr').length) {
+        if (cnt != TableManager.getTableLenght()) {
             renderPoints();
         }
         else{

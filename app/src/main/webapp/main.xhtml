@@ -35,6 +35,7 @@
         <div class="col-4">
             <div>
                 <canvas id="canvas">
+                    <!-- Invisible form for handling clicks on canvas -->
                     <h:form id="hidden-form">
                             <h:inputText id="x-input" value="#{point.x}" />
                             <h:inputText id="y-input" value="#{point.y}" />
@@ -44,6 +45,14 @@
                                 action="#{storage.addPoint(point)}">
                                 <f:ajax execute="@form" render="history-table" />
                             </h:commandButton>
+                    </h:form>
+
+                    <!-- Invisible button for updating storage -->
+                    <h:form id="update-form">
+                        <h:commandButton id="update-storage"
+                        action="#{storage.update()}" >
+                            <f:ajax execute="@form" render="history-table"/>
+                        </h:commandButton>
                     </h:form>
                 </canvas>
             </div>
@@ -64,8 +73,10 @@
                         </div>
                     </div>
                     <div class="row justify-content-center text-center">
-                        <div class="col-6">
+                        <div class="col-1">
                             <h:outputLabel for="r-input" value="R: "/>
+                        </div>
+                        <div class="col-5">
                             <div class="d-flex justify-content-center">
                                 <h:selectOneRadio id="r-input" value="#{point.r}">
                                     <f:selectItem itemValue="1" itemLabel="1" />
