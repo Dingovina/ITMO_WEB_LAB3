@@ -25,13 +25,15 @@ public class DataBaseManager {
     private String url = "jdbc:postgresql://" + HOST_NAME + ":" + PORT + "/" + DB_NAME;
     private Properties props = new Properties();
     
-    private Connection connection;
+    private static Connection connection;
     private Statement statement;
     
     public DataBaseManager() throws SQLException, ClassNotFoundException, FileNotFoundException, IOException {
         Class.forName("org.postgresql.Driver");
         props.load(new FileInputStream("db.cfg"));
-        connection = DriverManager.getConnection(url, props);
+        if (connection == null){
+            connection = DriverManager.getConnection(url, props);
+        }
         statement = connection.createStatement();
         
         if (getPoints() == null) {
