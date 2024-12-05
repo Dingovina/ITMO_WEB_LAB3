@@ -1,6 +1,7 @@
 package app.managers;
 
 import java.sql.Statement;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.io.FileInputStream;
@@ -52,47 +53,45 @@ public class DataBaseManager {
                         "  y double precision,\n" +
                         "  r double precision,\n" +
                         "  hit boolean,\n" +
-                        "  drawn boolean\n" +
+                        "  drawn boolean,\n" +
+                        "  time varchar(255)\n" +
                         ")";
         statement.executeUpdate(query);
     }
     
     public void addPoint(PointBean point) throws SQLException {
         createTable();
-        String query = "INSERT INTO " + TABLE_NAME + " (x, y, r, hit, drawn)\n" +
-                        "VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO " + TABLE_NAME + " (x, y, r, hit, drawn, time)\n" +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setDouble(1, point.getX());
             ps.setDouble(2, point.getY());
             ps.setDouble(3, point.getR());
             ps.setBoolean(4, point.isHit());
             ps.setBoolean(5, point.isDrawn());
+            ps.setString(6, point.getTime().toString());
             ps.executeUpdate();
         }
     }
     
     public ArrayList<PointBean> getPoints() throws SQLException {
-        String query = "SELECT x, y, r, hit, drawn\n" +
+        createTable();
+        String query = "SELECT x, y, r, hit, drawn, time\n" +
                         "FROM " + TABLE_NAME;
         ArrayList<PointBean> list = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    list.add(new PointBean(rs.getDouble(1), rs.getDouble(2), rs.getDouble(3), rs.getBoolean(4), rs.getBoolean(5)));
-                }
-            }
-            catch (SQLException e) {
-                return null;
-            }
-        }
-        catch (SQLException e) {
-            return null;
+        PreparedStatement ps = connection.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            list.add(new PointBean(
+                rs.getDouble(1),
+                rs.getDouble(2), 
+                rs.getDouble(3), 
+                rs.getBoolean(4), 
+                rs.getBoolean(5), 
+                ZonedDateTime.parse(rs.getString(6))
+            ));
         }
         return list;
-    }
-
-    public String echo(){
-        return "echo";
     }
 }
 

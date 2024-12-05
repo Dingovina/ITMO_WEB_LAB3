@@ -15,6 +15,7 @@
 
     <h:outputScript name="js/libs/sweetalert2.all.min.js" />
     <h:outputScript src="https://kit.fontawesome.com/e42952d0e5.js" crossorigin="anonymous"/>
+    <h:outputScript name="js/managers/ajaxManager.js" />
     <script src="resources/js/main.js" type="module"></script>
 
     <title>Coordinate Axis</title>
@@ -39,17 +40,6 @@
         <div class="col-4">
             <div>
                 <canvas id="canvas">
-                    <!-- Invisible form for handling clicks on canvas -->
-                    <h:form id="hidden-form">
-                            <h:inputText id="x-input" value="#{point.x}" />
-                            <h:inputText id="y-input" value="#{point.y}" />
-                            <h:inputText id="r-input" value="#{point.r}" />
-                            <h:inputText id="drawn-input" value="#{point.drawn}" />
-                            <h:commandButton class="btn btn-success" id="submit" value="Проверить"
-                                action="#{storage.addPoint(point)}">
-                                <f:ajax execute="@form" render="history-table" />
-                            </h:commandButton>
-                    </h:form>
                 </canvas>
             </div>
             <div>
@@ -88,7 +78,7 @@
                         <div class="col-6">
                             <h:commandButton class="btn btn-success" id="submit" value="Проверить"
                                 action="#{storage.addPoint(point)}">
-                                <f:ajax execute="@form" render="history-table"/>
+                                <f:ajax execute="@form" render="history-table" />
                             </h:commandButton>
                         </div>
                     </div>
@@ -119,10 +109,32 @@
                     <f:facet name="header">Результат</f:facet>
                     <h:outputText value="#{dot.hit ? 'Попадание' : 'Промах'}" styleClass="text-#{dot.hit ? 'success' : 'danger'}"/>
                 </h:column>
-            
+
+                <h:column>
+                    <f:facet name="header">Время</f:facet>
+                    #{dot.time}
+                </h:column>
             </h:dataTable>
         </div>
     </div>
+    <!-- Invisible form for handling clicks on canvas -->
+    <h:form id="hidden-form" style="display: none">
+        <h:inputHidden id="x-input" value="#{point.x}" />
+        <h:inputHidden id="y-input" value="#{point.y}" />
+        <h:inputHidden id="r-input" value="#{point.r}" />
+        <h:inputHidden id="drawn-input" value="#{point.drawn}" />
+        <h:commandButton class="btn btn-success" id="submit" value="Проверить"
+            action="#{storage.addPoint(point)}">
+            <f:ajax execute="@form" render="history-table" />
+        </h:commandButton>
+    </h:form>
+    <!-- Invisible form for table update -->
+    <h:form id="timeZone-form" style="display: none">
+        <h:inputText id="storage-timeZone" value="#{storage.timeZone}" />
+        <h:commandButton class="btn btn-success" id="submit" value="Проверить">
+            <f:ajax execute="@form" render="history-table" />
+        </h:commandButton>
+    </h:form>
 </h:body>
 </html>
 

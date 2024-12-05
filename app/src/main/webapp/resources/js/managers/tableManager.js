@@ -7,4 +7,12 @@ export class TableManager{
         }
         return cnt;
     }
+    static setTimeZone(){
+        const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById("timeZone-form:storage-timeZone").value = currentTimezone;
+    }
+    static updateTable(){
+        this.setTimeZone();
+        document.getElementById("timeZone-form:submit").click();
+    }
 }
