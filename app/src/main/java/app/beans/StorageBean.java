@@ -15,9 +15,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ManagedBean
 @ApplicationScoped
 public class StorageBean implements Serializable {
-
-    // private DataBaseManager dataBaseManager = new DataBaseManager();
-
     @Inject
     private DataBaseManager dataManager;
     

@@ -6,11 +6,11 @@ import java.io.Serializable;
 import app.managers.HitManager;
 import jakarta.inject.Named;
 import jakarta.annotation.ManagedBean;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.SessionScoped;
 
 @Data
 @Named("point")
-@ApplicationScoped
+@SessionScoped
 @ManagedBean
 public class PointBean implements Serializable {
 
