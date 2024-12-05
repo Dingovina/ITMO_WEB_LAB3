@@ -95,7 +95,7 @@
                         </div>
                         <div class="col-6">
                             <h:commandButton class="btn btn-success" id="submit" value="Проверить"
-                                action="#{storage.addPoint(point)}" >
+                                action="#{storage.addPoint(point)}">
                                 <f:ajax execute="@form" render="history-table"/>
                             </h:commandButton>
                         </div>
@@ -116,6 +116,11 @@
                 <h:column>
                     <f:facet name="header">Y</f:facet>
                     #{dot.y}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">R</f:facet>
+                    #{dot.r}
                 </h:column>
                 
                 <h:column>

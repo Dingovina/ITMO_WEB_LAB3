@@ -1,14 +1,22 @@
+// время + локаль
+// паттерн Controller-Service-Repository
+
+// Доп: интерфейс дб менеджера + 2 реализации (jdbc и hibernate), менять динамически
+
 import { CanvasManager } from "./managers/canvasManager.js";
 import { TableManager } from "./managers/tableManager.js";
 
 init();
 
 function renderPoints(){
+    let curR = parseFloat(document.querySelector('input[name="form:r-input"]:checked').value);
     let points = [];
     for (let row of document.querySelectorAll('#history-table tbody tr')) {
         let x = parseFloat(row.children[0].textContent);
         let y = parseFloat(row.children[1].textContent);
-        let hit = row.children[2].textContent == "Попадание"; 
+        let r = parseFloat(row.children[2].textContent);
+        let hit = row.children[3].textContent == "Попадание"; 
+        if (r != curR) continue;
         points.push({
             x: x,
             y: y,

@@ -1,3 +1,5 @@
+// транзакции
+
 package app.managers;
 
 import java.sql.Statement;
@@ -35,15 +37,13 @@ public class DataBaseManager {
             connection = DriverManager.getConnection(url, props);
         }
         statement = connection.createStatement();
+        createTable();
         
-        if (getPoints() == null) {
-            createTable();
-        }
     }
 
     private void createTable() throws SQLException {
         System.out.println("Creating table...");
-        String query = "CREATE TABLE " + TABLE_NAME + " (\n" +
+        String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (\n" +
                         "  id SERIAL PRIMARY KEY,\n" +
                         "  x double precision,\n" +
                         "  y double precision,\n" +
