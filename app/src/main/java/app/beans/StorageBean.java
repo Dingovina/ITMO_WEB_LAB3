@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.managers.DataBaseManager;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -15,25 +16,18 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class StorageBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private ArrayList<PointBean> points = new ArrayList<>();
+    // private DataBaseManager dataBaseManager = new DataBaseManager();
 
-    public StorageBean() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
-        update();
-    }
+    @Inject
+    private DataBaseManager dataManager;
+    
+    private static final long serialVersionUID = 1L;
 
     public void addPoint(PointBean point) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException{
-        DataBaseManager dbManager = new DataBaseManager();
-        dbManager.addPoint(point);
-        update();
+        dataManager.addPoint(point);
     }
 
-    public void update() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException{
-        DataBaseManager dbManager = new DataBaseManager();
-        points = dbManager.getPoints();
-    }
-
-    public ArrayList<PointBean> getPoints() {
-        return points;
+    public ArrayList<PointBean> getPoints() throws SQLException {
+        return dataManager.getPoints();
     }
 }

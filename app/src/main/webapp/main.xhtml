@@ -50,14 +50,6 @@
                                 <f:ajax execute="@form" render="history-table" />
                             </h:commandButton>
                     </h:form>
-
-                    <!-- Invisible button for updating storage -->
-                    <h:form id="update-form">
-                        <h:commandButton id="update-storage"
-                        action="#{storage.update()}" >
-                            <f:ajax execute="@form" render="history-table"/>
-                        </h:commandButton>
-                    </h:form>
                 </canvas>
             </div>
             <div>
@@ -104,7 +96,7 @@
             </div>
         </div>
         <div class="col-7" id="result-table">
-            <h:dataTable value="#{storage.points}" var="dot"
+            <h:dataTable value="#{storage.getPoints()}" var="dot"
             id="history-table" 
             styleClass="table">
 

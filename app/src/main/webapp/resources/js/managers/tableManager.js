@@ -1,8 +1,4 @@
 export class TableManager{
-    static updateTable(){
-        document.getElementById("update-form:update-storage").click();
-    }
-
     static getTableLenght(){
         let table = document.querySelectorAll('#history-table tbody tr');
         let cnt = table.length;

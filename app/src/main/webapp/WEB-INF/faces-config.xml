@@ -20,9 +20,4 @@
     </navigation-rule>
 
 <!-- Beans -->
-    <managed-bean>
-        <managed-bean-name>point</managed-bean-name>
-        <managed-bean-class>app.beans.PointBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
 </faces-config> 

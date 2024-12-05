@@ -1,5 +1,3 @@
-// транзакции
-
 package app.managers;
 
 import java.sql.Statement;
@@ -10,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import app.beans.PointBean;
+import jakarta.annotation.ManagedBean;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +18,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Named("dbManager")
+@ManagedBean
+@ApplicationScoped
 public class DataBaseManager {
     private String HOST_NAME = "localhost";
     private String PORT = "5432";
@@ -37,8 +41,7 @@ public class DataBaseManager {
             connection = DriverManager.getConnection(url, props);
         }
         statement = connection.createStatement();
-        createTable();
-        
+        createTable();        
     }
 
     private void createTable() throws SQLException {
@@ -55,6 +58,7 @@ public class DataBaseManager {
     }
     
     public void addPoint(PointBean point) throws SQLException {
+        createTable();
         String query = "INSERT INTO " + TABLE_NAME + " (x, y, r, hit, drawn)\n" +
                         "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -85,6 +89,10 @@ public class DataBaseManager {
             return null;
         }
         return list;
+    }
+
+    public String echo(){
+        return "echo";
     }
 }
 

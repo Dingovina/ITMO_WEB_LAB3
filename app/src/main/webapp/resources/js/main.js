@@ -28,7 +28,6 @@ function renderPoints(){
 
 
 function init(){
-    TableManager.updateTable();
     setTimeout(() => {
         renderPoints();
     }, 200);
