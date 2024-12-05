@@ -21,6 +21,7 @@ public class StorageBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public void addPoint(PointBean point) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException{
+        point.checkHit();
         dataManager.addPoint(point);
     }
 

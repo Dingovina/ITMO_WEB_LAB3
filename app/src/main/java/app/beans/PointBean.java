@@ -40,16 +40,13 @@ public class PointBean implements Serializable {
 
     public void setX(double x) {
         this.x = x;
-        checkHit();
     }
 
     public void setY(double y) {
         this.y = y;
-        checkHit();
     }
 
     public void setR(double r) {
         this.r = r;
-        checkHit();
     }
 }
