@@ -1,10 +1,10 @@
-package app.managers;
+package app.Service.managers;
 
-import app.beans.PointBean;
+import app.dto.PointDTO;
 
 public class HitManager {
     
-    public static boolean isHit(PointBean point) {
+    public static boolean isHit(PointDTO point) {
         double x = point.getX();
         double y = point.getY();
         double r = point.getR();

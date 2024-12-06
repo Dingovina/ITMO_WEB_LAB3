@@ -1,4 +1,4 @@
-package app.managers;
+package app.Model;
 
 import java.sql.Statement;
 import java.time.ZonedDateTime;
@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import app.beans.PointBean;
+import app.dto.PointDTO;
 import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
@@ -59,7 +59,7 @@ public class DataBaseManager {
         statement.executeUpdate(query);
     }
     
-    public void addPoint(PointBean point) throws SQLException {
+    public boolean addPoint(PointDTO point) throws SQLException {
         createTable();
         String query = "INSERT INTO " + TABLE_NAME + " (x, y, r, hit, drawn, time)\n" +
                         "VALUES (?, ?, ?, ?, ?, ?)";
@@ -70,26 +70,28 @@ public class DataBaseManager {
             ps.setBoolean(4, point.isHit());
             ps.setBoolean(5, point.isDrawn());
             ps.setString(6, point.getTime().toString());
-            ps.executeUpdate();
+            return ps.executeUpdate() == 1;
+        }
+        catch (SQLException e) {
+            return false;
         }
     }
     
-    public ArrayList<PointBean> getPoints() throws SQLException {
+    public ArrayList<PointDTO> getPoints() throws SQLException {
         createTable();
-        String query = "SELECT x, y, r, hit, drawn, time\n" +
+        String query = "SELECT x, y, r, hit, time\n" +
                         "FROM " + TABLE_NAME;
-        ArrayList<PointBean> list = new ArrayList<>();
+        ArrayList<PointDTO> list = new ArrayList<>();
         PreparedStatement ps = connection.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            list.add(new PointBean(
-                rs.getDouble(1),
-                rs.getDouble(2), 
-                rs.getDouble(3), 
-                rs.getBoolean(4), 
-                rs.getBoolean(5), 
-                ZonedDateTime.parse(rs.getString(6))
-            ));
+            PointDTO point = new PointDTO();
+            point.setX(rs.getDouble(1));
+            point.setY(rs.getDouble(2));
+            point.setR(rs.getDouble(3));
+            point.setHit(rs.getBoolean(4));
+            point.setTime(ZonedDateTime.parse(rs.getString(5)));
+            list.add(point);
         }
         return list;
     }

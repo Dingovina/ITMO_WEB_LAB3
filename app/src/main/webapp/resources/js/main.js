@@ -1,13 +1,11 @@
-// // время + локаль
-// // паттерн Controller-Service-Repository
+// паттерн Controller-Service-Repository
 
-// // Доп: интерфейс дб менеджера + 2 реализации (jdbc и hibernate), менять динамически
+// Доп: интерфейс дб менеджера + 2 реализации (jdbc и hibernate), менять динамически
 
 import { CanvasManager } from "./managers/canvasManager.js";
 import { TableManager } from "./managers/tableManager.js";
 
 function renderPoints(){
-    TableManager.updateTable();
     let curR = parseFloat(document.querySelector('input[name="form:r-input"]:checked').value);
     let points = [];
     for (let row of document.querySelectorAll('#history-table tbody tr')) {
@@ -25,7 +23,19 @@ function renderPoints(){
     CanvasManager.updatePonits(points); 
 }
 
-renderPoints();
+function setTimezone(){
+    const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    document.getElementById("timezone-form:timezone-input").value = currentTimezone;
+    document.getElementById("timezone-form:submit").click();
+}
+
+
+init();
+
+function init(){
+    setTimezone();
+    renderPoints();
+}
 
 document.getElementsByName("form:r-input").forEach(radio => {
     radio.addEventListener('change', () => {
