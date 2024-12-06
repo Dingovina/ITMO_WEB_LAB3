@@ -18,7 +18,7 @@ import jakarta.inject.Named;
 @Named("controller")
 @ManagedBean
 @ApplicationScoped
-public class ControllerBean  implements Serializable{
+public class ControllerBean implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Inject

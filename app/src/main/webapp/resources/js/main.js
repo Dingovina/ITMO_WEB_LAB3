@@ -1,5 +1,3 @@
-// паттерн Controller-Service-Repository
-
 // Доп: интерфейс дб менеджера + 2 реализации (jdbc и hibernate), менять динамически
 
 import { CanvasManager } from "./managers/canvasManager.js";

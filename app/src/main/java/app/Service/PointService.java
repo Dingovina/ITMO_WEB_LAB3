@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import app.Model.DataBaseManager;
@@ -26,7 +25,7 @@ public class PointService implements Serializable {
 
     public boolean addPoint(PointDTO point) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException{
         point.setHit(HitManager.isHit(point));
-        point.setTime(ZonedDateTime.now());
+        point.setTime(TimeManager.now());
         return dataManager.addPoint(point);
     }
 
