@@ -36,5 +36,20 @@
                 <!-- <script>setInterval(updateClock, 5000);</script> -->
             </div>
         </div>
+        <div class="row justify-content-center text-center">
+            <div class="col-12">
+                <h:form>
+                    <div class="btn-group" data-toggle="buttons">
+                        <h:selectOneRadio id="dbManager" value="#{dbManager.dbManagers}" layout="pageDirection">
+                            <f:selectItem itemValue="HibernateManager" itemLabel="HIBERNATE"/>
+                            <f:selectItem itemValue="JDBCManager" itemLabel="JDBC"/>
+                        </h:selectOneRadio>
+                    </div>
+                    <h:commandButton styleClass="btn btn-success" id="submit" value="Установить" >
+                        <f:ajax execute="@form" />
+                    </h:commandButton>
+                </h:form>
+            </div>
+        </div>
     </h:body>
 </html>

@@ -1,4 +1,4 @@
-package app.Model;
+package app.Model.dbManagers;
 
 import java.sql.Statement;
 import java.time.ZonedDateTime;
@@ -8,10 +8,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import app.Model.DataBaseManaging;
 import app.dto.PointDTO;
-import jakarta.annotation.ManagedBean;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,10 +17,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jakarta.annotation.ManagedBean;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+
 @Named("JDBCManager")
 @ManagedBean
 @ApplicationScoped
-public class JDBCManager implements DataBaseManager {
+public class JDBCManager implements DataBaseManaging {
     private String HOST_NAME;
     private String PORT;
     private String DB_NAME;
@@ -69,7 +71,6 @@ public class JDBCManager implements DataBaseManager {
     
     @Override
     public boolean addPoint(PointDTO point) throws SQLException {
-        createTable();
         String query = "INSERT INTO " + TABLE_NAME + " (x, y, r, hit, drawn, time)\n" +
                         "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -88,7 +89,7 @@ public class JDBCManager implements DataBaseManager {
     
     @Override
     public ArrayList<PointDTO> getPoints() throws SQLException {
-        createTable();
+        // System.out.println("Getting points from jdbc...");
         String query = "SELECT x, y, r, hit, time\n" +
                         "FROM " + TABLE_NAME;
         ArrayList<PointDTO> list = new ArrayList<>();
